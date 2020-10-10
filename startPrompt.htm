@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>
+        Start Up Screen
+    </title>
+    <meta name="author" content="team110">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+</head>
+<body class="bg-light-blue black-70 pa5 mv4 tc">
+    <h1 class = "f1 black-70 grow">Welcome to Brickbreaker Game</h1>
+    <h2 class = "f3 grow">Click the button and enter the game password</h2>
+    <p>...if you're not chicken of course...</p>
+
+<button onclick="myFunction()">Start the game!</button>
+
+
+<script>
+function myFunction() 
+{
+  var pass = prompt("Please enter your password", "password");
+  if (pass != null) 
+  {
+    window.location ="http://608dev-2.net/sandbox/sc/team110/finalProject/multiplayer.py?pass="+pass;
+  }
+}
+</script>
+
+</body>
+</html>

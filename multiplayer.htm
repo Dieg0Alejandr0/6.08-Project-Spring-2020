@@ -1,0 +1,292 @@
+<DOCTYPE html> 
+<html> 
+	
+<head>
+<h1 style = "color:black">BrickBreaker IoT </h1> 
+	<style>
+		svg {
+		  position: relative;
+		  width: 256;
+		  height: 320;
+		  z-index: -2;
+		}
+		canvas {
+		  position: absolute;
+		  width: 256;
+		  height: 320;
+		  z-index: 2;
+		}
+	</style>
+	<title> 
+		Multiplayer!
+	</title> 
+	<meta name="author" content="team110">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+</head> 
+
+<body class="bg-light-blue black-70 pa5 mv4 tc">
+	<h2 style="color: rgb(128, 0, 0)"> 
+		Opponent's Screen 
+	</h2> 
+
+	
+	<p id="demo"></p>
+    <!-- <p>Check the console for the output.</p>  -->
+	<!-- <canvas width="128" height="160" -->
+	<canvas width="256" height ="320"
+        style="background-color: transparent"> 
+	</canvas> 
+	<svg width="256" height="320">
+		<rect width="256" height="320" 
+		style="fill:rgb(255,255,255);stroke-width:10;stroke:rgb(0,0,0)" />
+		<rect id="brick0" x="22" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick1" x="58" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick2" x="94" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick3" x="130" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick4" x="166" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick5" x="202" y="20" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick6" x="22" y="40" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick7" x="58" y="40" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick8" x="94" y="40" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick9" x="130" y="40" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick10" x="166" y="40" width="32" height="16" 
+		style="fill:black" />
+		<rect id="brick11" x="202" y="40" width="32" height="16" 
+		style="fill:black" />
+		<circle id="ball"cx="128" cy="150" r="8" stroke="black" stroke-width="0" fill="black" />
+		<rect id ="cursor" x="47" y="300" width="80" height="16" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_0" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_1" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_2" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_3" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_4" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_5" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_6" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_7" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_8" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_9" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_10" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_11" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_12" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_13" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_14" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_15" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_16" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_17" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_18" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_19" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+		<rect id ="rect_20" x="0" y="0" width="0" height="0" 
+		style="fill:rgb(0,0,0)" />
+
+	</svg>
+	<script type="text/javascript">
+	var j = 0;
+		function update_content() 
+		{
+  			var xhttp = new XMLHttpRequest();
+			var xhttp1 = new XMLHttpRequest();
+  			xhttp.onreadystatechange = function() 
+  		{
+    		if (this.readyState == 4 && this.status == 200) 
+    	{
+        	var arr = JSON.parse(this.responseText);
+        	var i;
+        	for (i =0; i<12; i++){
+            	document.getElementById("brick"+i.toString()).style.fill= arr["brick"][i];
+        	}
+			var svgElement = document.getElementById("ball");
+			var xval = (2*arr["ball"][0]).toString();
+			var yval = (2*arr["ball"][1]).toString();
+			svgElement.setAttribute("cx", xval);
+			svgElement.setAttribute("cy",yval);
+			var svgElement1 = document.getElementById("cursor");
+			var xval1 = (2*arr["cursor"][0]).toString();
+			var yval1 = (2*arr["cursor"][1]).toString();
+			svgElement1.setAttribute("x", xval1);
+			svgElement1.setAttribute("y",yval1);
+    	}
+  	};
+	xhttp1.onreadystatechange = function() 
+    {
+        if (this.readyState == 4 && this.status == 200) 
+        {
+            var arr = JSON.parse(this.responseText);
+                //document.getElementById("demo1").innerHTML = arr["rect"][0];
+                if (arr["rect"][0]!=0)
+				{
+					var svgElement = document.getElementById("rect_"+j.toString());
+					//var xval = (2*arr["ball"][0]).toString();
+					//var yval = (2*arr["ball"][1]).toString();
+					svgElement.setAttribute("x",(2*arr["rect"][0]));
+					svgElement.setAttribute("y",(2*arr["rect"][1]));
+					svgElement.setAttribute("width", (2*arr["rect"][2]));
+					svgElement.setAttribute("height",(2*arr["rect"][3]));
+					j++;
+					if(j>20)
+						j = 0;	
+                }
+            }     
+    };
+  //target a URL that only returns the content...not the whole page!  
+  //this is nice because you can send back much less stuff on subsequent "renders"
+  //this is faster both for the server and the client...and the browser will look good
+  //can also do POSTs if you want.
+  	xhttp.open("GET", "http://608dev-2.net/sandbox/sc/team110/finalProject/screenGet.py", true);
+  	xhttp.send();
+  	xhttp1.open("GET", "http://608dev-2.net/sandbox/sc/team110/finalProject/jsUpdate.py", true);
+	xhttp1.send();  
+    
+} 
+
+		function getRandomInt(max) 
+		{
+        	return Math.floor(Math.random() * Math.floor(max));
+        }
+        //var i = 0;
+        // function update_content1() 
+        // {
+        //     //i++;
+        //     var xhttp = new XMLHttpRequest();
+        //     xhttp.onreadystatechange = function() 
+        // 	{
+        //     if (this.readyState == 4 && this.status == 200) 
+        //     {
+        //         var arr = JSON.parse(this.responseText);
+        //         //document.getElementById("demo1").innerHTML = arr["rect"][0];
+        //         if (arr["rect"][0]!=0){
+		// 			var svgElement = document.getElementById("rect_"+getRandomInt(10).toString());
+		// 			//var xval = (2*arr["ball"][0]).toString();
+		// 			//var yval = (2*arr["ball"][1]).toString();
+		// 			svgElement.setAttribute("x",(2*arr["rect"][0]));
+		// 			svgElement.setAttribute("y",(2*arr["rect"][1]));
+		// 			svgElement.setAttribute("width", (2*arr["rect"][2]));
+		// 			svgElement.setAttribute("height",(2*arr["rect"][3]));
+        //         }
+        //     	}     
+        // 	};
+        // 	xhttp.open("GET", "http://608dev-2.net/sandbox/sc/team110/finalProject/jsUpdate.py", true);
+        // 	xhttp.send();  
+        // }
+		//var intervalID1 = setInterval(update_content1, 500);
+		var intervalID = setInterval(update_content, 100);
+
+		function printMousePos(canvas, event) {
+			let rect = canvas.getBoundingClientRect(); 
+            let x = Math.round((event.clientX - rect.left)/2); 
+            let y = Math.round((event.clientY - rect.top)/2);
+            document.getElementById("demo").innerHTML = "X: " + x + " Y: " + y;
+			return [x,y];
+        }
+		let canvasElem = document.querySelector("canvas");
+
+        canvasElem.addEventListener("mousedown", function(e)
+		{
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://608dev-2.net/sandbox/sc/team110/finalProject/multiplayer.py", true);
+        	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			
+			let listCoord = printMousePos(canvasElem, e);
+			// let myX = Math.round(listCoord[0]/2);
+			// let myY = Math.round(listCoord[1]/2);
+			let myX = listCoord[0];
+			let myY = listCoord[1];
+			
+            xhr.send('x='.concat(myX,'&','y=',myY));
+
+		});
+    </script>
+
+<p> 
+    Pick a Block Size, then click on your opponents screen to place the block! 
+</p>
+
+<h2>Choose Your Block Dimensions!</h2>
+
+<form>
+<!-- <form action="http://608dev-2.net/sandbox/sc/team110/finalProject/multiplayer.py" method = "POST"> -->
+	<label for="dims">Choose From Drop Down (Height x Width):</label>
+    <select id="dims" name="dims">
+		<option value="none" selected disabled hidden> 
+			Select a Dimension 
+		</option> 
+      <option value="f(15,5)">15 x 5</option>
+      <option value="f(5,15)">5 x 15</option>
+      <option value="f(9,9)">9 x 9</option>
+	</select>
+</form>
+<div>
+<button type="button" id = 'dimSubmit' onclick = "myFunc();return false">Submit</button>
+</div>
+<script>
+	function myFunc(){
+
+		var e = document.getElementById("dims");
+		var strUser = e.options[e.selectedIndex].value;
+		var xlr = new XMLHttpRequest();
+
+		xlr.open("POST", "http://608dev-2.net/sandbox/sc/team110/finalProject/multiplayer.py", true);
+		xlr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		xlr.send('dims='.concat(strUser));
+		
+		// set time out for button
+		document.getElementById("dimSubmit").disabled = true;
+		setTimeout(function(){document.getElementById("dimSubmit").disabled = false;},1000);
+		}
+</script>
+
+</body>
+<body>
+<div class = "row mv3">
+<h3>Special thanks to our team coaches</h3>
+<img src = "https://iesc.io/608/_static/S20/StaffPics/ahtun.jpg" style="width:100px;height:100px;border:2px solid black;">
+<img src = "https://iesc.io/608/_static/S20/StaffPics/ethanc.jpg" style="width:100px;height:100px;border:2px solid black;">
+<img src = "https://iesc.io/608/_static/S20/StaffPics/nmurthy.jpg" style="width:100px;height:100px;border:2px solid black;">
+</div>
+<div class = "row mv3">
+<h3>Created By</h3>
+<img src = "https://media-exp1.licdn.com/dms/image/C4E03AQGNDQtMc9g6zw/profile-displayphoto-shrink_200_200/0?e=1594857600&v=beta&t=1a724m2xUIX-np1RGwzOQMPvdHTxO1-r5qQWWn5sB-g" style = "width:100px;height:100px;border:2px solid black;">
+<img src = "https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/20479456_1444828265607317_5793645601372832702_n.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=exJvVtaokIgAX-sI6vS&_nc_ht=scontent.fsac1-1.fna&oh=b1c3c917d31e04961d701a41fecd8068&oe=5EE17A7D" style="width:100px;height:100px;border:2px solid black;">
+<img src = "https://media-exp1.licdn.com/dms/image/C5603AQGtILjUrbIt2A/profile-displayphoto-shrink_800_800/0?e=1594857600&v=beta&t=JLQt8ggEsoMTnWw6xvnNUSO5ezMeHqRU1wbvZnc8yNg" style = "width:100px;height:100px;border:2px solid black;">
+<img src = "https://media-exp1.licdn.com/dms/image/C4E03AQG843ObPYsb2w/profile-displayphoto-shrink_800_800/0?e=1594857600&v=beta&t=8Md5wrAaxyUAR_8IWdeFumIPJSorePkJ6TwJRgrDEWE" style ="width:100px;height:100px;border:2px solid black;">
+</div>
+
+<div class = "tl">
+	<a href='http://608dev-2.net/sandbox/sc/team110/finalProject/leaderboard.py'>
+		<button class = "">
+			LEADERBOARD
+		</button>
+	</a>
+</div>
+</body>
+</html> 
